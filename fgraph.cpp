@@ -1,17 +1,4 @@
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <iomanip>
-#include <string>
-#include <vector>
-#include <map>
-using namespace std;
-
-struct node {
-	int id;
-	int degree; 
-	vector <int> adj; // indicates edge from id -> adj[i]
-};
+#include "fgraph.hpp"
 
 void graph_print(map <int, node*> graph) 
 {
