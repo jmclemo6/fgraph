@@ -7,3 +7,7 @@ and the following integers are adjacencies from the node to other nodes.
 For example, the line: 
 2 4 9 2
 specifies a node with id 2, and edges leading from itself to nodes 4, 9, and a itself. 
+
+
+### Note: 
+Feel free to roast my code. I'm always looking for a better way to do things.
