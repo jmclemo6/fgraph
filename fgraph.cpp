@@ -41,11 +41,10 @@ std::vector <std::string> fgraph::file_read(std::string filename)
 // Parse lines from file and create a node object for each node
 std::map <int, node*> fgraph::graph_create(std::vector <std::string> input_lines) 
 {
-	int i;
     std::map <int, node*> graph;
 	node *new_node;
 
-	for (i = 0; i < input_lines.size(); i++) {
+	for (int i = 0; i < input_lines.size(); i++) {
 		new_node = node_create(input_lines[i]);
 		graph[new_node->id] = new_node;
 	}
@@ -66,7 +65,7 @@ node * fgraph::node_create(std::string line)
 	ss << line;
 	ss >> id; 
 	new_node->id = id;
-	while (ss >> edge) {
+	while ( ss >> edge ) {
 		new_node->adj.push_back(edge);	
 	}
 	ss.clear();
