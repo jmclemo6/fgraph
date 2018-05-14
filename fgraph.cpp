@@ -1,32 +1,32 @@
 #include "fgraph.hpp"
 
 // Prints each node in the graph and it's adjacencies
-void fgraph::graph_print(map <int, node*> graph) 
+void fgraph::graph_print(std::map <int, node*> graph) 
 {
 	for (auto it = graph.begin(); it != graph.end(); it++) {
-		cout << "NODE: " << it->second->id << ": EDGES {";
+        std::cout << "NODE: " << it->second->id << ": EDGES {";
 		for (int i = 0; i < it->second->adj.size(); i++) {
-			cout << it->second->adj[i]; 
+            std::cout << it->second->adj[i]; 
 			if ( i < it->second->adj.size() - 1 ) {
-				cout << ",";
+                std::cout << ",";
 			}
 		}
-		cout << "}" << endl;
+        std::cout << "}" << std::endl;
 	}
 }
 
 // Reads from file filename and returns a vector of strings that contains
 // the lines of filename
-vector <string> fgraph::file_read(string filename) 
+std::vector <std::string> fgraph::file_read(std::string filename) 
 {
-	ifstream file;
-	string line;
-	vector <string> lines;
+    std::ifstream file;
+    std::string line;
+    std::vector <std::string> lines;
 
 	file.open(filename); 
 	if ( !file.is_open() ) {
 		file.close();
-		cout << "Could not open file " << filename << endl;
+        std::cout << "Could not open file " << filename << std::endl;
 		exit(-1);
 	}
 
@@ -39,13 +39,12 @@ vector <string> fgraph::file_read(string filename)
 }
 
 // Parse lines from file and create a node object for each node
-map <int, node*> fgraph::graph_create(vector <string> input_lines) 
+std::map <int, node*> fgraph::graph_create(std::vector <std::string> input_lines) 
 {
-	int i;
-	map <int, node*> graph;
+    std::map <int, node*> graph;
 	node *new_node;
 
-	for (i = 0; i < input_lines.size(); i++) {
+	for (int i = 0; i < input_lines.size(); i++) {
 		new_node = node_create(input_lines[i]);
 		graph[new_node->id] = new_node;
 	}
@@ -54,9 +53,9 @@ map <int, node*> fgraph::graph_create(vector <string> input_lines)
 }
 
 // Create a new node for each node entry in the file
-node * fgraph::node_create(string line) 
+node * fgraph::node_create(std::string line) 
 {
-	stringstream ss;
+    std::stringstream ss;
 	node *new_node = NULL; 
 	int id, edge;
 
@@ -66,28 +65,10 @@ node * fgraph::node_create(string line)
 	ss << line;
 	ss >> id; 
 	new_node->id = id;
-	while (ss >> edge) {
+	while ( ss >> edge ) {
 		new_node->adj.push_back(edge);	
 	}
 	ss.clear();
 
 	return new_node;
-}
-
-int main(int argc, char **argv) 
-{
-	fgraph f;
-	string filename;
-	map <int, node*> graph;
-
-	if (argc < 2) { 
-		cout << "Usage: fgraph <filename>" << endl;
-		return 1;
-	}
-	filename = argv[1];
-
-	graph = f.graph_create( f.file_read(filename) );
-	f.graph_print(graph);
-
-	return 0;
 }
